@@ -137,10 +137,9 @@ private
 
   def gem(command, ruby_version)
     bindir = "/opt/rubies/#{ruby_version}/bin"
-    execute "#{bindir}/gem #{command} --verbose", {
+    execute "sudo -u #{user} #{bindir}/gem #{command} --verbose", {
       :combine            => true,
       :failonfail         => true,
-      :uid                => user,
       :override_locale    => false,
       :custom_environment => {
         "PATH" => env_path(bindir),
