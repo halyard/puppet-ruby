@@ -55,6 +55,8 @@ Puppet::Type.newtype(:ruby_gem) do
   end
 
   newparam(:ruby_version) do
+    defaultto '*'
+
     validate do |v|
       unless v.is_a? String
         raise Puppet::ParseError,
