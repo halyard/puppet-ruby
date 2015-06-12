@@ -137,7 +137,7 @@ private
 
   def gem(command, ruby_version)
     bindir = "/opt/rubies/#{ruby_version}/bin"
-    execute "sudo -u #{user} #{bindir}/gem #{command} --verbose", {
+    options = {
       :combine            => true,
       :failonfail         => true,
       :override_locale    => false,
@@ -145,8 +145,10 @@ private
         "PATH" => env_path(bindir),
         "GEM_PATH" => nil,
         "LANG" => "en_US.UTF-8"
-      }
-    }
+      }   
+    } 
+    execute "sudo -u #{user} #{bindir}/gem #{command} --verbose", options
+    execute "sudo -u #{user} rbenv rehash, options" 
   end
 
   def user
