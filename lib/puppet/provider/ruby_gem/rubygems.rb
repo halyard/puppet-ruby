@@ -148,7 +148,7 @@ private
       }   
     } 
     execute "sudo -u #{user} #{bindir}/gem #{command} --verbose", options
-    execute "sudo -u #{user} rbenv rehash, options" 
+    execute "sudo -u #{user} rbenv rehash", options
   end
 
   def user
