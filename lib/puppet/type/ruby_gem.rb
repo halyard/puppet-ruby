@@ -46,6 +46,8 @@ Puppet::Type.newtype(:ruby_gem) do
   end
 
   newparam(:gem) do
+    defaultto { resource[:name] }
+
     validate do |v|
       unless v.is_a? String
         raise Puppet::ParseError,
