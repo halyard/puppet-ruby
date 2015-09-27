@@ -145,8 +145,8 @@ private
         "PATH" => env_path(bindir),
         "GEM_PATH" => nil,
         "LANG" => "en_US.UTF-8"
-      }   
-    } 
+      }
+    }
     execute "sudo -u #{user} #{bindir}/gem #{command} --verbose", options
     execute "sudo -u #{user} /opt/boxen/rbenv/bin/rbenv rehash", options
   end
