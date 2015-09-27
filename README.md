@@ -11,6 +11,10 @@ Module to install ruby versions and gems
 * Removed a lot of meta-stuff I wasn't using, like the cardboard scripts
 * Removed definition files for github's custom ruby versions
 * Set up CircleCI build tests
+* Default gem version to '\*'
+* Default gem name to resource title
+* Rehash rbenv after gem install
+* Switch from puppet-module-data to function bindings
 
 ## Usage
 
