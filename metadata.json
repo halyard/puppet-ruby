@@ -1,6 +1,6 @@
 {
   "name": "halyard-ruby",
-  "version": "8.5.5",
+  "version": "8.5.6",
   "author": "Les Aker",
   "license": "MIT",
   "summary": "Configure ruby via Boxen",
