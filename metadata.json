@@ -1,0 +1,22 @@
+{
+  "name": "halyard-ruby",
+  "version": "8.5.3",
+  "author": "Les Aker",
+  "license": "MIT",
+  "summary": "Configure ruby via Boxen",
+  "source": "https://github.com/halyard/puppet-ruby",
+  "project_page": "https://github.com/halyard/puppet-ruby",
+  "issues_url": "https://github.com/halyard/puppet-ruby/issues",
+  "dependencies": [
+
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Darwin",
+      "operatingsystemmajrelease": [
+        "14",
+        "15"
+      ]
+    }
+  ]
+}
