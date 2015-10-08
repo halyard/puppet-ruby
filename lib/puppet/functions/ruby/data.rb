@@ -1,7 +1,7 @@
-module Puppet::Parser::Functions
-  newfunction(:'ruby::data', :type => :rvalue) do
-    prefix = lookupvar('::boxen::config::home')
-    user = lookupvar('::boxen_user')
+Puppet::Functions.create_function(:'ruby::data') do
+  def data
+    prefix = closure_scope.lookupvar('::boxen::config::home')
+    user = closure_scope.lookupvar('::boxen_user')
     {
       'ruby::prefix' => prefix,
       'ruby::user' => user,
@@ -39,11 +39,11 @@ module Puppet::Parser::Functions
 
       'ruby::version::env' =>   {
         'Darwin' => {
-          'BOXEN_S3_HOST' => lookupvar('::boxen_s3_host'),
-          'BOXEN_S3_BUCKET' => lookupvar('::boxen_s3_bucket'),
-          'CFLAGS' => "-I#{lookupvar('::homebrew::config::installdir')}/include -march=core2 -O3",
-          'LDFLAGS' => "-L#{lookupvar('::homebrew::config::installdir')}/lib",
-          'RUBY_CONFIGURE_OPTS' => "--without-gmp --with-readline-dir=#{lookupvar('::homebrew::config::installdir')}/opt/readline"
+          'BOXEN_S3_HOST' => closure_scope.lookupvar('::boxen_s3_host'),
+          'BOXEN_S3_BUCKET' => closure_scope.lookupvar('::boxen_s3_bucket'),
+          'CFLAGS' => "-I#{closure_scope.lookupvar('::homebrew::config::installdir')}/include -march=core2 -O3",
+          'LDFLAGS' => "-L#{closure_scope.lookupvar('::homebrew::config::installdir')}/lib",
+          'RUBY_CONFIGURE_OPTS' => "--without-gmp --with-readline-dir=#{closure_scope.lookupvar('::homebrew::config::installdir')}/opt/readline"
         },
         '1.8.7-p375' => {
           'CC' => 'gcc-4.8',
