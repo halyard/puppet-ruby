@@ -10,7 +10,7 @@ export RBENV_ROOT=<%= scope.lookupvar("::ruby::rbenv::prefix") %>
 export PATH=$RBENV_ROOT/bin:$PATH
 
 # Load rbenv
-eval "$(rbenv init -)"
+[[ -z "$SKIP_RBENV_INIT" ]] && eval "$(rbenv init -)"
 
 # Helper for shell prompts and the like
 current_ruby() {

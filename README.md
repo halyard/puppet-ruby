@@ -17,6 +17,7 @@ Module to install ruby versions and gems
 * Default gem name to resource title
 * Rehash rbenv after gem install
 * Switch from puppet-module-data to function bindings
+* Allow skipping rbenv init on shell creation using SKIP_RBENV_INIT environment variable
 
 ## Usage
 
