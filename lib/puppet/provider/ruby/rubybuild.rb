@@ -42,7 +42,7 @@ Puppet::Type.type(:ruby).provide(:rubybuild) do
         raise Puppet::Error, "Can't install ruby because we're offline and the tarball isn't cached"
       end
     else
-      try_to_download_precompiled_ruby || build_ruby
+      build_ruby
     end
   rescue => e
     raise Puppet::Error, "install failed with a crazy error: #{e.message} #{e.backtrace}"
@@ -53,61 +53,12 @@ Puppet::Type.type(:ruby).provide(:rubybuild) do
   end
 
 private
-  def try_to_download_precompiled_ruby
-    Puppet.debug("Trying to download precompiled ruby for #{version}")
-    output = execute "curl --silent --fail #{precompiled_url} >#{tmp} && tar xjf #{tmp} -C /opt/rubies", command_options.merge(:failonfail => false)
-
-    output.exitstatus == 0
-  ensure
-    FileUtils.rm_f tmp
-  end
-
   def build_ruby
     execute "#{ruby_build} #{version} #{prefix}", command_options.merge(:failonfail => true)
   end
 
   def tmp
     "/tmp/ruby-#{version}.tar.bz2"
-  end
-
-  # Keep in sync with same-named function in:
-  # https://github.com/boxen/our-boxen/blob/master/script/sync
-  def s3_cellar
-    homebrew_cellar = "#{Facter.value(:homebrew_root)}/Cellar"
-    case homebrew_cellar
-    when "/Cellar", "/opt/boxen/homebrew/Cellar" then ""
-    when "/usr/local/Cellar" then "default/"
-    else "#{Base64.strict_encode64(homebrew_cellar)}/"
-    end
-  end
-
-  def precompiled_url
-    base = Facter.value(:boxen_download_url_base) ||
-      "https://#{Facter.value(:boxen_s3_host)}/#{Facter.value(:boxen_s3_bucket)}"
-
-    %W(
-      #{base}
-      /
-      rubies
-      /
-      #{Facter.value(:operatingsystem)}
-      /
-      #{s3_cellar}
-      #{os_release}
-      /
-      #{CGI.escape(version)}.tar.bz2
-    ).join("")
-  end
-
-  def os_release
-    case Facter.value(:operatingsystem)
-    when "Darwin"
-      Facter.value(:macosx_productversion_major)
-    when "Debian", "Ubuntu"
-      Facter.value(:lsbdistcodename)
-    else
-      Facter.value(:operatingsystem)
-    end
   end
 
   def ruby_build
@@ -134,8 +85,8 @@ private
   end
 
   def cache_path
-    @cache_path ||= if Facter.value(:boxen_home)
-      "#{Facter.value(:boxen_home)}/cache/rubies"
+    @cache_path ||= if Facter.value(:rootdir)
+      "#{Facter.value(:rootdir)}/cache/rubies"
     else
       "/tmp/rubies"
     end

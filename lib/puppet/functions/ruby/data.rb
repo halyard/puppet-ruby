@@ -1,7 +1,7 @@
 Puppet::Functions.create_function(:'ruby::data') do
   def data
-    prefix = closure_scope.lookupvar('::boxen::config::home')
-    user = closure_scope.lookupvar('::boxen_user')
+    prefix = closure_scope.lookupvar('::rootdir')
+    user = closure_scope.lookupvar('::user')
     {
       'ruby::prefix' => prefix,
       'ruby::user' => user,
@@ -39,8 +39,6 @@ Puppet::Functions.create_function(:'ruby::data') do
 
       'ruby::version::env' =>   {
         'Darwin' => {
-          'BOXEN_S3_HOST' => closure_scope.lookupvar('::boxen_s3_host'),
-          'BOXEN_S3_BUCKET' => closure_scope.lookupvar('::boxen_s3_bucket'),
           'CFLAGS' => "-I#{closure_scope.lookupvar('::homebrew::config::installdir')}/include -march=core2 -O3",
           'LDFLAGS' => "-L#{closure_scope.lookupvar('::homebrew::config::installdir')}/lib",
           'RUBY_CONFIGURE_OPTS' => "--without-gmp --with-readline-dir=#{closure_scope.lookupvar('::homebrew::config::installdir')}/opt/readline"

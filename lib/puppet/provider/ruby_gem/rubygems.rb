@@ -152,7 +152,7 @@ private
   end
 
   def user
-    Facter.value(:boxen_user) || Facter.value(:id)
+    Facter.value(:user) || Facter.value(:id)
   end
 
   def version(v)
@@ -186,7 +186,7 @@ private
 
   def env_path(bindir)
     [bindir,
-     "#{Facter.value(:boxen_home)}/bin",
+     "#{Facter.value(:rootdir)}/bin",
      "/usr/bin", "/bin", "/usr/sbin", "/sbin"].join(':')
   end
 end

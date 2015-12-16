@@ -8,7 +8,10 @@
   "project_page": "https://github.com/halyard/puppet-ruby",
   "issues_url": "https://github.com/halyard/puppet-ruby/issues",
   "dependencies": [
-
+    {
+      "name": "halyard/homebrew",
+      "version_requirement": "1.13.x"
+    }
   ],
   "operatingsystem_support": [
     {
