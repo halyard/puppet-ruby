@@ -28,9 +28,9 @@ class ruby(
     owner  => $user,
   }
 
-  Class['ruby::build'] ->
-    Ruby::Definition <| |> ->
-    Class[$provider_class] ->
-    Ruby <| |> ->
-    Ruby_gem <| |>
+  Class['ruby::build']
+  -> Ruby::Definition <| |>
+  -> Class[$provider_class]
+  -> Ruby <| |>
+  -> Ruby_gem <| |>
 }
